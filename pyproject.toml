@@ -1,0 +1,21 @@
+[project]
+name = "first-step-langchain-demo"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "dotenv>=0.9.9",
+    "langchain>=0.3.26",
+    "langchain-chroma>=0.2.4",
+    "langchain-community>=0.3.26",
+    "langchain-openai>=0.3.24",
+    "langgraph>=0.4.8",
+    "streamlit>=1.46.0",
+    "unstructured[docx,md,pdf,pptx,xlsx]>=0.17.2",
+    "langchain-tavily>=0.2.4",
+    "faiss-cpu>=1.11.0",
+    "langchain-anthropic>=0.3.17",
+    "langchain-google-vertexai>=2.0.27",
+    "langchain-google-genai>=2.1.8",
+]
