@@ -10,6 +10,8 @@
 
 - 質問の内容や検索対象にするローカルファイルの内容は、LLM のサービスや LangSmith のサービスへ送られる形になります。セキュリティ上問題のないことを確認の上でご利用ください。
 
+- LLMの利用には、その利用量に応じた料金がかかります。
+
 # インストールの手順
 
 1. 以下のライブラリやアプリケーションをインストールしてください。
@@ -48,4 +50,14 @@ OPENAI_API_KEY=sk-proj-abcde-12345
 
 - VS Code のターミナルで`make streamlit`を実行するとサーバーが起動し、ブラウザで`localhost:8080`にアクセスすると利用できます。
 - 初回の実行時は、uv により必要なライブラリがインストールされるため時間がかかります。
-- 終了は`Ctrl`+`C`です。
+- Streamlitの使用が初めての場合は、次のメッセージが表示されることがあります。メールアドレスの入力は必須ではないので、入力せずに`Enter`で先に進めます。
+```
+      👋 Welcome to Streamlit!
+
+      If you'd like to receive helpful onboarding emails, news, offers, promotions,
+      and the occasional swag, please enter your email address below. Otherwise,
+      leave this field blank.
+
+      Email:  
+```
+- 終了は、起動したターミナルで`Ctrl`+`C`を押してください。
