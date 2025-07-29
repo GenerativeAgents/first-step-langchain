@@ -40,7 +40,7 @@
 
 - AI エージェントの内部をトレースするために、LangSmith のサービスを利用しています。無料プランがありますので、https://www.langchain.com/langsmith で利用登録して、API-KEY を発行し、後述の`.env`ファイルに記述してください。なお、LangSmith を使わなくても動作します。その場合は、`.env`ファイルで、`LANGCHAIN_TRACING_V2=false`と設定してください。この場合、API-KEY の取得も不要です。
 
-- `.env.template`ファイルのファイル名を`.env`に変更し、中に各種 API-KEY を記述してください。たとえば OpenAI から取得した API-KEY が`sk-proj-abcde-12345`（実際はもっと長いです）の場合は、以下のように記述してください。また、使用しない API-KEY に関しては、該当する行ごと削除してください。
+- `.env.template`ファイルを複製してファイル名を`.env`とし、中に各種 API-KEY を記述してください。たとえば OpenAI から取得した API-KEY が`sk-proj-abcde-12345`（実際はもっと長いです）の場合は、以下のように記述してください。また、使用しない API-KEY に関しては、該当する行ごと削除してください。
 
 ```
 OPENAI_API_KEY=sk-proj-abcde-12345
