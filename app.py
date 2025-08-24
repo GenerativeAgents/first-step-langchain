@@ -1,11 +1,11 @@
 import streamlit as st
 from dotenv import load_dotenv
+from langchain.embeddings import init_embeddings
 from langchain.tools import Tool
 from langchain.tools.retriever import create_retriever_tool
 from langchain_community.document_loaders import DirectoryLoader
 from langchain_community.vectorstores import FAISS
 from langchain_core.messages import AIMessage, BaseMessage, HumanMessage
-from langchain_openai import OpenAIEmbeddings
 from langchain_tavily import TavilySearch
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langgraph.prebuilt import create_react_agent
@@ -34,7 +34,8 @@ def create_local_search_tool() -> Tool:
     text_splitter = RecursiveCharacterTextSplitter(chunk_size=200, chunk_overlap=40)
     texts = text_splitter.split_documents(documents)
     vectorstore = FAISS.from_documents(
-        texts, OpenAIEmbeddings(model="text-embedding-3-small")
+        texts,
+        init_embeddings(model="openai:text-embedding-3-small"),  # type: ignore
     )
     return create_retriever_tool(
         vectorstore.as_retriever(), name="local_search", description="社内資料の検索"
