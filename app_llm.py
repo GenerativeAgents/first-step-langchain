@@ -1,7 +1,7 @@
 import streamlit as st
 from dotenv import load_dotenv
 from langchain_core.messages import AIMessage, BaseMessage, HumanMessage
-from langgraph.prebuilt import create_react_agent
+from langchain.agents import create_agent
 
 
 # 画面に会話履歴を表示
@@ -31,10 +31,10 @@ def app() -> None:
     prompt = "業務の質問に根拠付きで端的に回答してください。"
 
     # ③これらをセットしたらAIエージェント完成！(LLMのみなのでAIエージェントとは呼べませんが)
-    agent = create_react_agent(
+    agent = create_agent(
         model=model,
         tools=[],
-        prompt=prompt,
+        system_prompt=prompt,
     )
 
     # ④タイトル、グラフの図、ここまでの会話履歴を表示

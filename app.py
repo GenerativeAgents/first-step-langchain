@@ -1,14 +1,15 @@
+from pathlib import Path
+
 import streamlit as st
 from dotenv import load_dotenv
+from langchain.agents import create_agent
 from langchain.embeddings import init_embeddings
-from langchain.tools import Tool
-from langchain.tools.retriever import create_retriever_tool
-from langchain_community.document_loaders import DirectoryLoader
+from langchain_community.document_loaders import DirectoryLoader, PyPDFLoader
 from langchain_community.vectorstores import FAISS
 from langchain_core.messages import AIMessage, BaseMessage, HumanMessage
+from langchain_core.tools import Tool, create_retriever_tool
 from langchain_tavily import TavilySearch
 from langchain_text_splitters import RecursiveCharacterTextSplitter
-from langgraph.prebuilt import create_react_agent
 
 
 # 画面に会話履歴を表示
@@ -30,7 +31,14 @@ def show_message(message: BaseMessage) -> None:
 # ファイルを読み込んでベクトル検索DBを構築
 @st.cache_resource  # アプリ起動後の初回のみ
 def create_local_search_tool() -> Tool:
-    documents = DirectoryLoader("./docs", glob="**/*").load()
+    documents = []
+    # PDFファイルを読み込み（DirectoryLoaderはpopplerが必要になるので今回は使わない）
+    for pdf_path in Path("./docs").glob("**/*.pdf"):
+        documents.extend(PyPDFLoader(str(pdf_path)).load())
+    # その他のファイルを読み込み
+    for pattern in ["**/*.docx", "**/*.xlsx", "**/*.pptx", "**/*.md"]:
+        documents.extend(DirectoryLoader("./docs", glob=pattern).load())
+
     text_splitter = RecursiveCharacterTextSplitter(chunk_size=200, chunk_overlap=40)
     texts = text_splitter.split_documents(documents)
     vectorstore = FAISS.from_documents(
@@ -67,10 +75,10 @@ def app() -> None:
     prompt = "社内資料に基づき、業務の質問に根拠付きで回答してください。必要に応じてネットも検索してください。"
 
     # ⑤これらをセットしたらAIエージェント完成！
-    agent = create_react_agent(
+    agent = create_agent(
         model=model,
         tools=[web_search_tool, local_search_tool],
-        prompt=prompt,
+        system_prompt=prompt,
     )
 
     # ⑥タイトル、グラフの図、ここまでの会話履歴を表示
