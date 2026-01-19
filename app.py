@@ -65,8 +65,8 @@ def app() -> None:
     model = st.sidebar.selectbox(
         label="利用するLLMを選択",
         options=[
-            "anthropic:claude-sonnet-4-0",
-            "openai:gpt-4.1-mini",
+            "anthropic:claude-sonnet-4-5",
+            "openai:gpt-5-nano",
             "google_genai:gemini-2.5-flash",
         ],
     )

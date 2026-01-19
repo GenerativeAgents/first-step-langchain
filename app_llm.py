@@ -1,7 +1,7 @@
 import streamlit as st
 from dotenv import load_dotenv
-from langchain_core.messages import AIMessage, BaseMessage, HumanMessage
 from langchain.agents import create_agent
+from langchain_core.messages import AIMessage, BaseMessage, HumanMessage
 
 
 # 画面に会話履歴を表示
@@ -21,8 +21,8 @@ def app() -> None:
     model = st.sidebar.selectbox(
         label="利用するLLMを選択",
         options=[
-            "anthropic:claude-sonnet-4-0",
-            "openai:gpt-4.1-mini",
+            "anthropic:claude-sonnet-4-5",
+            "openai:gpt-5-nano",
             "google_genai:gemini-2.5-flash",
         ],
     )
